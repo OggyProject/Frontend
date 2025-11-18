@@ -1,5 +1,5 @@
 <script setup lang="js">
-import { ref, onBeforeMount, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const props = defineProps({
   images: {
@@ -15,12 +15,15 @@ const props = defineProps({
 
 const activeSlide = ref(1)
 const totalSlides = computed(() => props.images.length)
+const carouselRef = ref(null)
 let autoPlayIntervalId = null
 
 const goToSlide = (slideNumber) => {
   activeSlide.value = slideNumber
-  if (process.client) {
-    window.location.hash = `#carousel-item${slideNumber}`
+  // เลื่อน carousel เองโดยไม่กระทบกับ scroll position ของหน้า
+  if (process.client && carouselRef.value) {
+    const slideWidth = carouselRef.value.offsetWidth
+    carouselRef.value.scrollLeft = (slideNumber - 1) * slideWidth
   }
 }
 
@@ -63,24 +66,8 @@ const handleKeydown = (event) => {
   }
 }
 
-const updateActive = () => {
-  if (process.client) {
-    const hash = window.location.hash
-    if (hash && hash.startsWith('#carousel-item')) {
-      const itemNumber = hash.replace('#carousel-item', '')
-      activeSlide.value = parseInt(itemNumber) || 1
-    }
-  }
-}
-
-onBeforeMount(() => {
-  // เช็ค hash ก่อน mount เพื่อป้องกัน hydration mismatch
-  updateActive()
-})
-
 onMounted(() => {
   if (process.client) {
-    window.addEventListener('hashchange', updateActive)
     window.addEventListener('keydown', handleKeydown)
     startAutoPlay()
   }
@@ -89,7 +76,6 @@ onMounted(() => {
 onUnmounted(() => {
   stopAutoPlay()
   if (process.client) {
-    window.removeEventListener('hashchange', updateActive)
     window.removeEventListener('keydown', handleKeydown)
   }
 })
@@ -97,27 +83,27 @@ onUnmounted(() => {
 
 <template>
   <div class="relative">
-    <div class="carousel w-full">
+    <div ref="carouselRef" class="carousel w-full overflow-hidden">
       <div 
         v-for="(image, index) in images" 
         :key="index"
         :id="`carousel-item${index + 1}`" 
         class="carousel-item w-full"
       >
-        <img :src="image" :alt="`Slide ${index + 1}`" class="w-full" />
+        <img :src="image" :alt="`Slide ${index + 1}`" class="w-full object-cover" />
       </div>
     </div>
 
     <!-- Indicators -->
     <div class="indicators absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-      <a 
+      <button 
         v-for="n in totalSlides" 
         :key="n"
-        :href="`#carousel-item${n}`" 
-        @click.prevent="activeSlide = n; resetAutoPlay()"
+        @click="goToSlide(n); resetAutoPlay()"
+        class="cursor-pointer"
       >
         <div class="dot" :class="{ active: activeSlide === n }"></div>
-      </a>
+      </button>
     </div>
   </div>
 </template>
@@ -133,5 +119,23 @@ onUnmounted(() => {
 
 .dot.active {
   background: rgb(255, 255, 255);
+}
+
+.carousel {
+  scroll-behavior: smooth;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
 }
 </style>
