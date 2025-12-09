@@ -11,7 +11,7 @@
           alt="School Logo"
           class="w-24 h-24 object-contain"
         />
-        <span class="text-lg font-bold">Somkit Wittaya School</span>
+        <span class="text-lg font-bold">Somkidvittaya School</span>
       </NuxtLink>
     </div>
 
@@ -19,7 +19,8 @@
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1 items-center">
         <li class="text-lg"><a>about</a></li>
-        <li class="text-lg"><a>events</a></li>
+        <li class="text-lg"><NuxtLink to="/Event">events</NuxtLink></li>
+        <li class="text-lg"><NuxtLink to="/ListEmployee">employee</NuxtLink></li>
 
         <li>
           <details>

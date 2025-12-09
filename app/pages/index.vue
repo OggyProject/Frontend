@@ -1,6 +1,4 @@
 <script setup lang="js">
-import Navbar from '~/components/Navbar.vue';
-import Footer from '~/components/Footer.vue';
 import Carousel from '~/components/Carousel.vue';
 import Card from '~/components/Card.vue';
 
@@ -32,7 +30,7 @@ const cardItems = [
 </script>
 
 <template>
-  <Navbar />
+  
   <!-- Hero Section -->
   <section>
     <div
@@ -104,7 +102,7 @@ const cardItems = [
 
 
 
-  <Footer />
+  
 </template>
 
 <style scoped>  
