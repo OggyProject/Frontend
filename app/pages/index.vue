@@ -39,12 +39,11 @@ const cardItems = [
       <div class="hero-overlay bg-opacity-40"></div>
         <div class="hero-content text-center text-white">
           <div class="max-w-md">
-              <h1 class="text-5xl font-bold">ABOUT</h1>
+              <h1 class="text-5xl font-bold">ABOUT US</h1>
               <p class="py-6">
-              The Academic Excellence of British Education
-              Established in Bangkok
-              King's College International School Bangkok is a King's College School Wimbledon
-              International School, located in the heart of Bangkok on Ratchada–Rama 3 Road.
+              A school created especially for your child.
+              为孩子的未来而生的学校。
+              โรงเรียนที่สร้างสรรค์มาเพื่อลูกของคุณ
               </p>
           </div>
         </div>

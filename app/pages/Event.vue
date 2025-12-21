@@ -21,18 +21,19 @@ const thumbnail = (idx) => `https://picsum.photos/seed/event${idx}/300/180`
         class="flex gap-4 items-start bg-base-100 p-3 rounded shadow-sm"
       >
         <img
-          :src="thumbnail(idx)"
-          :alt="ev.headline"
+          :src="ev.image || thumbnail(idx)"
+          :alt="ev.image_alt || ev.headline"
           class="w-40 h-24 object-cover rounded"
         />
 
         <div class="flex-1">
-          <h3 class="text-base md:text-lg font-semibold text-sky-800 hover:underline cursor-pointer">
-            {{ ev.headline }}
-          </h3>
+          <h4 class="text-sm md:text-base font-medium text-sky-800">
+            <NuxtLink :to="`/events/${ev.slug}`" class="hover:underline">{{ ev.headline }}</NuxtLink>
+          </h4>
 
-          <div class="mt-2 text-sm text-gray-500 flex items-center gap-2">
-            <!-- clock icon -->
+          <p class="text-xs text-gray-600 mt-1">{{ ev.short_desc }}</p>
+
+          <div class="mt-2 text-xs text-gray-500 flex items-center gap-2">
             <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
