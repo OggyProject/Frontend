@@ -21,7 +21,7 @@
   </nav>
   <nav>
     <h6 class="footer-title">Contact</h6>
-    <a href="https://www.facebook.com/somkidvittaya" class="link link-hover">FaceBook</a>
+    <a href="https://www.facebook.com/somkidvittaya" class="link link-hover">Facebook</a>
   </nav>
   <nav>
     <h6 class="footer-title">Legal</h6>
