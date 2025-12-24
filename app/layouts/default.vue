@@ -9,10 +9,7 @@
 </template>
 
 <script setup>
-import Navbar from '~/app/components/Navbar.vue'
-import Footer from '~/app/components/Footer.vue'
 </script>
 
 <style scoped>
-
 </style>
